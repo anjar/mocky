@@ -1,18 +1,44 @@
 import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createClient } from '@/utils/supabase/server';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
-export default function Index() {
+export default async function Index() {
+  const supabase = await createClient(cookies());
+  const { data: { user } } = await supabase.auth.getUser();
+
+  const signOut = async () => {
+    'use server';
+    const supabase = await createClient(cookies());
+    await supabase.auth.signOut();
+    return redirect('/login');
+  };
+
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
           <div className="font-bold text-xl">MockIt</div>
-          <div className="flex gap-4">
-            <Link
-              href="/login"
-              className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
-            >
-              Login
-            </Link>
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            {user ? (
+              <div className="flex items-center gap-4">
+                <span className="text-foreground/70">Hi, {user.email}</span>
+                <form action={signOut}>
+                  <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
+                    Logout
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </nav>
@@ -27,12 +53,21 @@ export default function Index() {
             Scalable, reliable, and entirely serverless.
           </p>
           <div className="flex gap-4 mt-8">
-            <Link
-              href="/login"
-              className="py-3 px-6 rounded-md no-underline bg-foreground text-background font-medium hover:opacity-90 transition-opacity"
-            >
-              Get Started for Free
-            </Link>
+            {user ? (
+              <Link
+                href="/dashboard"
+                className="py-3 px-6 rounded-md no-underline bg-foreground text-background font-medium hover:opacity-90 transition-opacity"
+              >
+                Go to Dashboard
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="py-3 px-6 rounded-md no-underline bg-foreground text-background font-medium hover:opacity-90 transition-opacity"
+              >
+                Get Started for Free
+              </Link>
+            )}
             <Link
               href="#features"
               className="py-3 px-6 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover font-medium transition-colors border border-foreground/10"

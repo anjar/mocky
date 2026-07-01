@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from "next/headers";
 import Link from 'next/link';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export default async function DashboardLayout({
   children,
@@ -24,6 +25,7 @@ export default async function DashboardLayout({
         <div className="w-full max-w-5xl flex justify-between items-center p-3 text-sm">
           <Link href="/dashboard" className="font-bold text-xl hover:opacity-80">MockIt Dashboard</Link>
           <div className="flex items-center gap-4">
+            <ThemeToggle />
             <span className="text-foreground/80">{user.email}</span>
             <form action="/auth/signout" method="post">
               <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover border border-foreground/10">

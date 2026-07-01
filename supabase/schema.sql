@@ -25,6 +25,7 @@ CREATE TABLE endpoints (
   response_body JSONB DEFAULT '{}'::jsonb,
   delay_ms INTEGER DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT NOW(),
+  expires_at TIMESTAMPTZ DEFAULT NOW() + interval '30 days',
   UNIQUE(project_id, method, path)
 );
 
@@ -88,3 +89,17 @@ CREATE POLICY "Users can delete their own endpoints"
       SELECT id FROM projects WHERE user_id = auth.uid()
     )
   );
+
+CREATE POLICY "Projects are publicly readable" ON projects FOR SELECT USING (true);
+CREATE POLICY "Endpoints are publicly readable" ON endpoints FOR SELECT USING (true);
+
+-- Enable pg_cron extension for scheduled tasks
+CREATE EXTENSION IF NOT EXISTS pg_cron;
+
+-- Schedule a daily job at midnight (UTC) to delete expired endpoints
+-- Returns jobid, you can manage it via cron.job table if needed
+SELECT cron.schedule(
+  'delete-expired-endpoints',
+  '0 0 * * *',
+  $$ DELETE FROM endpoints WHERE expires_at < NOW(); $$
+);

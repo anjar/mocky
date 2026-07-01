@@ -16,9 +16,10 @@ async function handleMockRequest(request: NextRequest, { params }: RouteContext)
   // We fall back to anon key if service role is missing, but RLS will block it.
   // In a real prod setup, SUPABASE_SERVICE_ROLE_KEY MUST be set in .env
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || '';
 
   const supabase = createSupabaseClient(supabaseUrl, supabaseKey);
+  console.log("apiPrefix", apiPrefix, "patjh", pathArray)
 
   // 1. Find the project by api_prefix
   const { data: project } = await supabase
@@ -27,6 +28,7 @@ async function handleMockRequest(request: NextRequest, { params }: RouteContext)
     .eq('api_prefix', apiPrefix)
     .single();
 
+  console.log("project", project)
   if (!project) {
     return NextResponse.json(
       { error: `MockIt: Project with prefix '${apiPrefix}' not found.` },
@@ -67,10 +69,10 @@ async function handleMockRequest(request: NextRequest, { params }: RouteContext)
 
   // Add CORS headers for OPTIONS requests
   if (method === 'OPTIONS') {
-      headers.set('Access-Control-Allow-Origin', '*');
-      headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-      headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-      return new NextResponse(null, { status: 204, headers });
+    headers.set('Access-Control-Allow-Origin', '*');
+    headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+    headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    return new NextResponse(null, { status: 204, headers });
   }
 
   // Ensure we have a content-type if returning JSON body, and one wasn't explicitly set
@@ -114,15 +116,15 @@ export async function DELETE(req: NextRequest, context: RouteContext) {
 export async function OPTIONS(req: NextRequest, context: RouteContext) {
   const response = await handleMockRequest(req, context);
   if (response.status === 404) {
-      // If we couldn't find an endpoint to base OPTIONS on, return generic CORS
-      return new NextResponse(null, {
-        status: 204,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        }
-      });
+    // If we couldn't find an endpoint to base OPTIONS on, return generic CORS
+    return new NextResponse(null, {
+      status: 204,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }
+    });
   }
   return response;
 }
