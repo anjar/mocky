@@ -33,11 +33,11 @@ const LoginButton = () => {
 
   return (
 		<>
-     <Auth
+      <Auth
         supabaseClient={supabase}
         appearance={{ theme: ThemeSupa }}
         providers={['google', 'github']}
-        redirectTo="http://www.mocky.loc/auth/callback"
+        redirectTo={typeof window !== 'undefined' ? `${window.location.origin}/auth/callback` : undefined}
       />
 			{/* <button onClick={handleGitHubLogin}>GitHub Login</button>
       < hr/> */}

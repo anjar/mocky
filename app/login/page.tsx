@@ -4,11 +4,12 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import LoginButton from "@/components/Login/LoginButton";
 
-export default function Login({
+export default async function Login({
   searchParams,
 }: {
-  searchParams: { message: string };
+  searchParams: Promise<{ message: string }>;
 }) {
+  const resolvedSearchParams = await searchParams;
   const signIn = async (formData: FormData) => {
     "use server";
 
@@ -17,11 +18,13 @@ export default function Login({
 
     const supabase = await createClient(cookies());
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
+    console.log("error", error);
+    console.log("data", data);
     if (error) {
       return redirect("/login?message=Could not authenticate user");
     }
@@ -77,7 +80,7 @@ export default function Login({
         Back
       </Link>
       <LoginButton />
-      {/* <form
+      <form
         className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
         action={signIn}
       >
@@ -88,7 +91,7 @@ export default function Login({
           className="rounded-md px-4 py-2 bg-inherit border mb-6"
           name="email"
           placeholder="you@example.com"
-          
+          required
         />
         <label className="text-md" htmlFor="password">
           Password
@@ -98,7 +101,7 @@ export default function Login({
           type="password"
           name="password"
           placeholder="••••••••"
-          
+          required
         />
         <button className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2">
           Sign In
@@ -110,12 +113,12 @@ export default function Login({
           Sign Up
         </button>
        
-        {searchParams?.message && (
+        {resolvedSearchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-            {searchParams.message}
+            {resolvedSearchParams.message}
           </p>
         )}
-      </form> */}
+      </form>
     </div>
   );
 }
