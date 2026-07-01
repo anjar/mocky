@@ -1,0 +1,8 @@
+
+> start
+> next start -p 5001
+
+▲ Next.js 16.2.9
+- Local:         http://localhost:5001
+- Network:       http://192.168.0.2:5001
+✓ Ready in 191ms

@@ -10,8 +10,8 @@ export async function GET(request: Request) {
    const next = searchParams.get('next') ?? '/'
 
   if (code) {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
+
+    const supabase = await createClient(cookies());
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
       return NextResponse.redirect(`${origin}${next}`)

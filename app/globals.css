@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 @layer base {
   :root {
@@ -22,7 +20,7 @@
 
 @layer base {
   * {
-    @apply border-foreground/20;
+    border-color: hsl(var(--foreground) / 0.2);
   }
 }
 
