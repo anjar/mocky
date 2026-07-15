@@ -1,6 +1,8 @@
+import { connection } from 'next/server'
 import LoginForm from "./LoginForm";
 
-export default function Login() {
+export default async function Login() {
+  await connection()
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 flex">
       {/* Left Side - Branding */}
