@@ -39,12 +39,11 @@ export const createAdminClient = async (cookieStorePromise: ReturnType<typeof co
 
 /**
  * Checks if a user has the admin role.
- * Role check looks for:
+ * Role check looks strictly at Supabase metadata:
  * 1. user.user_metadata.role === 'is_admin'
  * 2. user.user_metadata.is_admin === true
  * 3. user.app_metadata.role === 'is_admin'
  * 4. user.app_metadata.is_admin === true
- * 5. Or if the email is 'admin@mocky.com' / similar admin email as fallback
  */
 export function isUserAdmin(user: any): boolean {
   if (!user) return false;
@@ -60,11 +59,6 @@ export function isUserAdmin(user: any): boolean {
     appMeta.is_admin === true ||
     appMeta.is_admin === "true"
   ) {
-    return true;
-  }
-
-  // Check fallback email domain/prefix
-  if (user.email && (user.email === "admin@mocky.com" || user.email.startsWith("admin+"))) {
     return true;
   }
 
