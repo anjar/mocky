@@ -20,6 +20,15 @@
   * {
     border-color: hsl(var(--foreground) / 0.2);
   }
+
+  a,
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .animate-in {
