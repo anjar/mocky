@@ -1,6 +1,6 @@
 # Mocky
 
-Mocky is a simple API mocking website built with a vibe-coded workflow using Google Jules and Claude Code. The design direction was created with Google Stitch, and the project is hosted on Vercel and powered by Supabase.
+Mocky is a simple API mocking website built with a vibe-coded workflow using Google Jules and Claude Code. The design direction was created with Google Stitch, and the project demo is hosted on Vercel and powered by Supabase.
 
 ## What this project is for
 
