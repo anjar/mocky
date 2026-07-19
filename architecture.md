@@ -1,4 +1,4 @@
-# MockIt - API Mocking Platform Architecture
+# Mocky - API Mocking Platform Architecture
 
 ## System Architecture
 
@@ -29,7 +29,7 @@ CREATE TABLE projects (
   user_id UUID REFERENCES auth.users(id) NOT NULL,
   name TEXT NOT NULL,
   description TEXT,
-  api_prefix TEXT UNIQUE NOT NULL, -- e.g., 'pr_1a2b3c' -> api.mockit.com/pr_1a2b3c/...
+  api_prefix TEXT UNIQUE NOT NULL, -- e.g., 'pr_1a2b3c' -> api.mocky.com/pr_1a2b3c/...
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 -- Index for quick lookup

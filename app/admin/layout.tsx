@@ -123,7 +123,7 @@ export default async function AdminLayout({
               <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">
                 Admin
               </span>
-              MockIt Admin
+              Mocky Admin
             </Link>
             <span className="text-gray-300">|</span>
             <Link

@@ -281,7 +281,7 @@ export default function DashboardClient({ initialProjects, userEmail }: Dashboar
                   </p>
 
                   <div className="bg-blue-50/50 dark:bg-[#0052cc]/10 text-[#0052cc] dark:text-[#b2c5ff] font-mono text-xs px-3.5 py-2 rounded-lg border border-blue-100/50 dark:border-[#0052cc]/20 mb-6 truncate" title={`Prefix: ${project.api_prefix}`}>
-                    mockmaster.api/v2/{project.api_prefix}
+                    mocky.api/v2/{project.api_prefix}
                   </div>
 
                   <div className="mt-auto pt-4 border-t border-gray-100 dark:border-[#434654]/30 flex justify-between items-center text-xs text-gray-400">
@@ -357,7 +357,7 @@ export default function DashboardClient({ initialProjects, userEmail }: Dashboar
                         </td>
                         <td className="py-4 px-6">
                           <code className="bg-blue-50 text-[#0052cc] dark:bg-[#0052cc]/10 dark:text-[#b2c5ff] font-mono text-xs px-2.5 py-1 rounded border border-blue-100/50 dark:border-[#0052cc]/20">
-                            mockmaster.api/v2/{project.api_prefix}
+                            mocky.api/v2/{project.api_prefix}
                           </code>
                         </td>
                         <td className="py-4 px-6 font-semibold text-gray-600 dark:text-[#e2e2e6]">

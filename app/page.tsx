@@ -19,7 +19,7 @@ export default async function Index() {
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <div className="font-bold text-xl">MockIt</div>
+          <div className="font-bold text-xl">Mocky</div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
             {user ? (
@@ -78,7 +78,7 @@ export default async function Index() {
         </main>
 
         <section id="features" className="w-full flex flex-col gap-8 py-16">
-          <h2 className="text-3xl font-bold text-center mb-8">Why MockIt?</h2>
+          <h2 className="text-3xl font-bold text-center mb-8">Why Mocky?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col gap-4 p-6 border border-foreground/10 rounded-lg">
               <h3 className="text-xl font-bold">Instant Setup</h3>
