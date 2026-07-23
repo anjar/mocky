@@ -2,6 +2,11 @@ import { createClient } from '@/utils/supabase/server';
 import { cookies } from "next/headers";
 import DashboardClient from './DashboardClient';
 import { getSiteUrl } from '@/utils/site-url';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Projects | Mocky",
+};
 
 export default async function DashboardIndex() {
   const supabase = await createClient(cookies());

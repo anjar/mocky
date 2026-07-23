@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@next/third-parties": "^16.2.11",
     "@supabase/auth-ui-react": "^0.4.7",
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/ssr": "latest",

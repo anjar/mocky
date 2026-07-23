@@ -4,6 +4,11 @@ import { notFound, redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/utils/supabase/server";
 import { EndpointActionButton } from "../../../EndpointActionButton";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Edit Endpoint | Mocky",
+};
 
 const commonStatusCodes = [
   [200, "OK"],

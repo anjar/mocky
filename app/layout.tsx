@@ -1,8 +1,14 @@
 import { GeistSans } from "geist/font/sans";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "./globals.css";
 import { getSiteUrl } from "@/utils/site-url";
 
 const defaultUrl = getSiteUrl();
+const configuredGtmId = process.env.NEXT_PUBLIC_GTM_ID?.trim();
+const gtmId =
+  configuredGtmId && /^GTM-[A-Z0-9]+$/i.test(configuredGtmId)
+    ? configuredGtmId
+    : null;
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
@@ -32,6 +38,7 @@ export default function RootLayout({
             {children}
           </main>
         </ThemeProvider>
+        {gtmId && <GoogleTagManager gtmId={gtmId} />}
       </body>
     </html>
   );

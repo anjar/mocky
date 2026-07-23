@@ -6,6 +6,27 @@ import Link from "next/link";
 import { EndpointActionButton } from "./EndpointActionButton";
 import { CopyCurlButton } from "./CopyCurlButton";
 import { getSiteUrl } from "@/utils/site-url";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const supabase = await createClient(cookies());
+  const { data: project } = await supabase
+    .from("projects")
+    .select("name")
+    .eq("id", id)
+    .single();
+
+  return {
+    title: project?.name
+      ? `${project.name} — Endpoint Ledger | Mocky`
+      : "Endpoint Ledger | Mocky",
+  };
+}
 
 export default async function ProjectPage({
   params,
