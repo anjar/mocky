@@ -151,7 +151,7 @@ export default async function AdminUserDetailPage({
                   <Link
                     href={`/admin/projects/${project.id}`}
                     key={project.id}
-                    className="border border-foreground/10 rounded-xl p-5 bg-card shadow-sm hover:shadow-md hover:border-[#24b47e] transition-all flex flex-col justify-between group"
+                    className="border border-foreground/10 rounded-xl p-5 bg-card shadow-sm hover:border-[#24b47e] transition-colors flex flex-col justify-between group"
                   >
                     <div>
                       <h3 className="font-bold text-base mb-1.5 group-hover:text-[#24b47e] transition-colors">

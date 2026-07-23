@@ -1,0 +1,77 @@
+:root {
+  --color-paper: oklch(98.5% 0.004 250);
+  --color-paper-2: oklch(95.5% 0.008 252);
+  --color-ink: oklch(24% 0.02 258);
+  --color-ink-soft: oklch(39% 0.018 257);
+  --color-muted: oklch(48% 0.014 256);
+  --color-rule: oklch(88% 0.012 254);
+  --color-rule-strong: oklch(68% 0.02 255);
+  --color-accent: oklch(51% 0.22 256);
+  --color-accent-hover: oklch(45% 0.22 256);
+  --color-accent-light: oklch(76% 0.14 250);
+  --color-accent-ink: oklch(99% 0.004 250);
+  --color-focus: oklch(42% 0.2 256);
+  --color-graphite: oklch(19% 0.018 260);
+  --color-graphite-rule: oklch(34% 0.022 258);
+  --color-code: oklch(94% 0.008 250);
+  --color-code-muted: oklch(74% 0.016 254);
+  --color-success: oklch(76% 0.17 150);
+
+  --font-display: "Space Grotesk", "Geist", ui-sans-serif, sans-serif;
+  --font-body: "Geist", ui-sans-serif, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+
+  --text-xs: 0.72rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.18rem;
+  --text-xl: 1.5rem;
+  --text-2xl: clamp(2rem, 4vw, 3.25rem);
+  --text-display: clamp(2.75rem, 7vw, 5.25rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-base: 220ms;
+
+  --rule-thin: 1px;
+  --rule-focus: 3px;
+  --radius-control: 6px;
+  --radius-panel: 10px;
+  --radius-round: 999px;
+  --shadow-panel: 0 1px 2px oklch(24% 0.02 258 / 0.08);
+  --content-max: 76rem;
+  --page-gutter: clamp(1rem, 4vw, 2.5rem);
+}
+
+.dark {
+  --color-paper: oklch(15% 0.018 260);
+  --color-paper-2: oklch(19% 0.02 259);
+  --color-ink: oklch(94% 0.008 250);
+  --color-ink-soft: oklch(78% 0.014 252);
+  --color-muted: oklch(66% 0.016 254);
+  --color-rule: oklch(29% 0.022 258);
+  --color-rule-strong: oklch(46% 0.025 256);
+  --color-accent: oklch(69% 0.18 252);
+  --color-accent-hover: oklch(75% 0.16 250);
+  --color-accent-light: oklch(79% 0.13 248);
+  --color-accent-ink: oklch(15% 0.018 260);
+  --color-focus: oklch(78% 0.16 250);
+  --color-graphite: oklch(11.5% 0.014 262);
+  --color-graphite-rule: oklch(28% 0.025 258);
+  --color-code: oklch(94% 0.008 250);
+  --color-code-muted: oklch(72% 0.018 252);
+  --color-success: oklch(78% 0.16 150);
+  --shadow-panel: 0 1px 2px oklch(5% 0.01 260 / 0.28);
+}

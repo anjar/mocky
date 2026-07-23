@@ -1,12 +1,14 @@
 import { connection } from 'next/server'
 import LoginForm from "./LoginForm";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default async function Login() {
   await connection()
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 flex">
+    <div className="auth-shell">
+      <div className="auth-theme-toggle"><ThemeToggle /></div>
       {/* Left Side - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 text-white">
+      <div className="auth-aside">
         <div>
           <div className="text-3xl font-bold mb-2">Mocky</div>
           <p className="text-gray-400">Engineer faster with precise API orchestration.</p>
@@ -36,7 +38,7 @@ export default async function Login() {
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 sm:p-12">
+      <div className="auth-main">
         <LoginForm />
       </div>
     </div>
