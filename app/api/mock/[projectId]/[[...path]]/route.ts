@@ -31,7 +31,7 @@ async function handleMockRequest(request: NextRequest, { params }: RouteContext)
   console.log("project", project)
   if (!project) {
     return NextResponse.json(
-      { error: `MockIt: Project with prefix '${apiPrefix}' not found.` },
+      { error: `Mocky: Project with prefix '${apiPrefix}' not found.` },
       { status: 404 }
     );
   }
@@ -47,7 +47,7 @@ async function handleMockRequest(request: NextRequest, { params }: RouteContext)
 
   if (!endpoint && method !== 'OPTIONS') {
     return NextResponse.json(
-      { error: `MockIt: Endpoint '${method} ${requestPath}' not found in this project.` },
+      { error: `Mocky: Endpoint '${method} ${requestPath}' not found in this project.` },
       { status: 404 }
     );
   } else if (!endpoint && method === 'OPTIONS') {

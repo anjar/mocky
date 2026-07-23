@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Mocky** (internally called "MockIt") is a multi-tenant API mocking platform. Users create projects (each with a unique `api_prefix`) and define mock endpoints. Any HTTP request to `/api/mock/:apiPrefix/:path` is served back a configurable status code, headers, and JSON body — with optional artificial delay.
+**Mocky** is a multi-tenant API mocking platform. Users create projects (each with a unique `api_prefix`) and define mock endpoints. Any HTTP request to `/api/mock/:apiPrefix/:path` is served back a configurable status code, headers, and JSON body — with optional artificial delay.
 
 Stack: Next.js App Router · React 19 · Supabase (PostgreSQL + Auth + RLS) · Tailwind CSS v4 · TypeScript · deployed on Vercel.
 

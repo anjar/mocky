@@ -22,9 +22,10 @@ interface Project {
 interface DashboardClientProps {
   initialProjects: Project[];
   userEmail: string;
+  siteUrl: string;
 }
 
-export default function DashboardClient({ initialProjects, userEmail }: DashboardClientProps) {
+export default function DashboardClient({ initialProjects, userEmail, siteUrl }: DashboardClientProps) {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -199,7 +200,7 @@ export default function DashboardClient({ initialProjects, userEmail }: Dashboar
   };
 
   return (
-    <div className="flex flex-col w-full h-full pb-10">
+    <div className="dashboard-surface flex flex-col w-full h-full pb-10">
       {/* Header Actions */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
@@ -215,7 +216,7 @@ export default function DashboardClient({ initialProjects, userEmail }: Dashboar
           <div className="flex bg-gray-150 dark:bg-[#23293e] rounded-lg p-1 border border-transparent dark:border-[#434654]/20">
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-4 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all ${
+              className={`px-4 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-colors ${
                 viewMode === 'grid'
                   ? 'bg-white dark:bg-[#2e3449] text-[#0052cc] dark:text-[#b2c5ff] shadow-sm'
                   : 'text-gray-500 hover:text-gray-900 dark:text-[#c3c6d6] dark:hover:text-[#e2e2e6]'
@@ -227,7 +228,7 @@ export default function DashboardClient({ initialProjects, userEmail }: Dashboar
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`px-4 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all ${
+              className={`px-4 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-colors ${
                 viewMode === 'list'
                   ? 'bg-white dark:bg-[#2e3449] text-[#0052cc] dark:text-[#b2c5ff] shadow-sm'
                   : 'text-gray-500 hover:text-gray-900 dark:text-[#c3c6d6] dark:hover:text-[#e2e2e6]'
@@ -254,10 +255,10 @@ export default function DashboardClient({ initialProjects, userEmail }: Dashboar
               return (
                 <div
                   key={project.id}
-                  className="bg-white dark:bg-[#070d1f] border border-gray-200 dark:border-[#434654]/40 rounded-xl p-6 flex flex-col hover:border-[#0052cc] dark:hover:border-[#0052cc] transition-all duration-200 shadow-sm group relative"
+                  className="bg-white dark:bg-[#070d1f] border border-gray-200 dark:border-[#434654]/40 rounded-xl p-6 flex flex-col hover:border-[#0052cc] dark:hover:border-[#0052cc] transition-colors duration-200 shadow-sm group relative"
                 >
                   <div className="flex justify-between items-start mb-4">
-                    <div className={`w-12 h-12 rounded-lg ${iconBg} flex items-center justify-center transition-transform group-hover:scale-110 duration-200`}>
+                    <div className={`w-12 h-12 rounded-lg ${iconBg} flex items-center justify-center transition-colors duration-200`}>
                       <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                         {iconName}
                       </span>
@@ -281,7 +282,7 @@ export default function DashboardClient({ initialProjects, userEmail }: Dashboar
                   </p>
 
                   <div className="bg-blue-50/50 dark:bg-[#0052cc]/10 text-[#0052cc] dark:text-[#b2c5ff] font-mono text-xs px-3.5 py-2 rounded-lg border border-blue-100/50 dark:border-[#0052cc]/20 mb-6 truncate" title={`Prefix: ${project.api_prefix}`}>
-                    mockmaster.api/v2/{project.api_prefix}
+                    {siteUrl}/api/mock/{project.api_prefix}
                   </div>
 
                   <div className="mt-auto pt-4 border-t border-gray-100 dark:border-[#434654]/30 flex justify-between items-center text-xs text-gray-400">
@@ -309,9 +310,9 @@ export default function DashboardClient({ initialProjects, userEmail }: Dashboar
             {/* Empty Slot "Start New Project" button card */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="border-2 border-dashed border-gray-200 dark:border-[#434654]/40 rounded-xl flex flex-col items-center justify-center p-6 bg-transparent hover:bg-gray-50/50 dark:hover:bg-[#151b2d]/50 hover:border-[#0052cc] dark:hover:border-[#0052cc] transition-all duration-200 group min-h-[220px]"
+              className="border-2 border-dashed border-gray-200 dark:border-[#434654]/40 rounded-xl flex flex-col items-center justify-center p-6 bg-transparent hover:bg-gray-50/50 dark:hover:bg-[#151b2d]/50 hover:border-[#0052cc] dark:hover:border-[#0052cc] transition-colors duration-200 group min-h-[220px]"
             >
-              <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 group-hover:bg-[#0052cc] group-hover:text-white transition-all duration-200 mb-3">
+              <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 group-hover:bg-[#0052cc] group-hover:text-white transition-colors duration-200 mb-3">
                 <span className="material-symbols-outlined text-[28px]">add_circle</span>
               </div>
               <span className="text-sm font-bold text-gray-900 dark:text-[#e2e2e6]">Start New Project</span>
@@ -357,7 +358,7 @@ export default function DashboardClient({ initialProjects, userEmail }: Dashboar
                         </td>
                         <td className="py-4 px-6">
                           <code className="bg-blue-50 text-[#0052cc] dark:bg-[#0052cc]/10 dark:text-[#b2c5ff] font-mono text-xs px-2.5 py-1 rounded border border-blue-100/50 dark:border-[#0052cc]/20">
-                            mockmaster.api/v2/{project.api_prefix}
+                            {siteUrl}/api/mock/{project.api_prefix}
                           </code>
                         </td>
                         <td className="py-4 px-6 font-semibold text-gray-600 dark:text-[#e2e2e6]">
@@ -372,7 +373,7 @@ export default function DashboardClient({ initialProjects, userEmail }: Dashboar
                         <td className="py-4 px-6 text-right">
                           <Link
                             href={`/dashboard/projects/${project.id}`}
-                            className="text-xs font-bold text-[#0052cc] dark:text-[#b2c5ff] hover:underline bg-gray-50 hover:bg-blue-50 dark:bg-[#191f33] dark:hover:bg-[#23293e] px-3.5 py-2 rounded-lg border border-gray-150 dark:border-[#434654]/45 transition-all"
+                            className="text-xs font-bold text-[#0052cc] dark:text-[#b2c5ff] hover:underline bg-gray-50 hover:bg-blue-50 dark:bg-[#191f33] dark:hover:bg-[#23293e] px-3.5 py-2 rounded-lg border border-gray-150 dark:border-[#434654]/45 transition-colors"
                           >
                             Manage Endpoints &rarr;
                           </Link>
@@ -418,7 +419,7 @@ export default function DashboardClient({ initialProjects, userEmail }: Dashboar
           ) : (
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-[#0052cc] text-white px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#0040a2] shadow transition-all duration-200 flex items-center gap-1.5"
+              className="bg-[#0052cc] text-white px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#0040a2] shadow transition-colors duration-200 flex items-center gap-1.5"
             >
               <span className="material-symbols-outlined text-[16px]">add</span>
               Create Your First Project

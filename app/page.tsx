@@ -1,122 +1,178 @@
-import Link from 'next/link';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { createClient } from '@/utils/supabase/server';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
+import { ThemeToggle } from "@/components/ThemeToggle";
+
+const capabilities = [
+  ["Methods", "GET · POST · PUT · PATCH · DELETE · OPTIONS"],
+  ["Response", "JSON body · headers · status code"],
+  ["Network", "Configurable response delay"],
+  ["Routing", "Nested and wildcard paths"],
+];
 
 export default async function Index() {
   const supabase = await createClient(cookies());
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const signOut = async () => {
-    'use server';
+    "use server";
     const supabase = await createClient(cookies());
     await supabase.auth.signOut();
-    return redirect('/login');
+    return redirect("/login");
   };
 
+  const workspaceHref = user ? "/dashboard" : "/signup";
+  const workspaceLabel = user ? "Open dashboard" : "Create account";
+
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <div className="font-bold text-xl">MockIt</div>
-          <div className="flex items-center gap-4">
-            <ThemeToggle />
-            {user ? (
-              <div className="flex items-center gap-4">
-                <span className="text-foreground/70">Hi, {user.email}</span>
-                <form action={signOut}>
-                  <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-                    Logout
-                  </button>
-                </form>
-              </div>
-            ) : (
-              <Link
-                href="/login"
-                className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
-              >
-                Login
+    <div className="landing-shell">
+      <header className="site-nav" aria-label="Primary navigation">
+        <Link className="wordmark" href="/" aria-label="Mocky home">
+          <span aria-hidden="true">M/</span> Mocky
+        </Link>
+        <div className="nav-actions">
+          <ThemeToggle />
+          {user ? (
+            <>
+              <span className="account-label">{user.email}</span>
+              <form action={signOut}>
+                <button className="button button-quiet" type="submit">
+                  Sign out
+                </button>
+              </form>
+              <Link className="button button-primary" href="/dashboard">
+                Open dashboard
               </Link>
-            )}
-          </div>
+            </>
+          ) : (
+            <>
+              <Link className="button button-quiet" href="/login">
+                Sign in
+              </Link>
+              <Link className="button button-primary" href="/signup">
+                Create account
+              </Link>
+            </>
+          )}
         </div>
-      </nav>
+      </header>
 
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3 w-full mt-20">
-        <main className="flex-1 flex flex-col gap-6 items-center text-center">
-          <h1 className="text-5xl font-bold lg:text-6xl text-foreground">
-            API Mocking Made Simple
-          </h1>
-          <p className="text-xl text-foreground/80 max-w-2xl">
-            Create mock APIs in seconds. Test your frontend without waiting for the backend.
-            Scalable, reliable, and entirely serverless.
-          </p>
-          <div className="flex gap-4 mt-8">
-            {user ? (
-              <Link
-                href="/dashboard"
-                className="py-3 px-6 rounded-md no-underline bg-foreground text-background font-medium hover:opacity-90 transition-opacity"
-              >
-                Go to Dashboard
+      <main>
+        <section className="hero page-grid" aria-labelledby="hero-title">
+          <div className="hero-copy">
+            <p className="signal-label">
+              <span className="signal-dot" aria-hidden="true" />
+              Simple mocking API
+            </p>
+            <h1 id="hero-title">Mock the endpoint. Keep building.</h1>
+            <p className="hero-lede">
+              Define routes, status codes, headers, JSON, and response delays.
+              Give every developer a dependable API before the backend is ready.
+            </p>
+            <div className="hero-actions">
+              <Link className="button button-primary button-large" href={workspaceHref}>
+                {workspaceLabel}
               </Link>
-            ) : (
-              <Link
-                href="/login"
-                className="py-3 px-6 rounded-md no-underline bg-foreground text-background font-medium hover:opacity-90 transition-opacity"
-              >
-                Get Started for Free
-              </Link>
-            )}
-            <Link
-              href="#features"
-              className="py-3 px-6 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover font-medium transition-colors border border-foreground/10"
-            >
-              View Features
-            </Link>
-          </div>
-        </main>
-
-        <section id="features" className="w-full flex flex-col gap-8 py-16">
-          <h2 className="text-3xl font-bold text-center mb-8">Why MockIt?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col gap-4 p-6 border border-foreground/10 rounded-lg">
-              <h3 className="text-xl font-bold">Instant Setup</h3>
-              <p className="text-foreground/70">Create a project and start adding endpoints immediately. No complex configuration required.</p>
-            </div>
-            <div className="flex flex-col gap-4 p-6 border border-foreground/10 rounded-lg">
-              <h3 className="text-xl font-bold">Custom Responses</h3>
-              <p className="text-foreground/70">Define exactly what your API should return. Support for custom JSON bodies, headers, and status codes.</p>
-            </div>
-            <div className="flex flex-col gap-4 p-6 border border-foreground/10 rounded-lg">
-              <h3 className="text-xl font-bold">Network Simulation</h3>
-              <p className="text-foreground/70">Add artificial delays to your endpoints to test how your frontend handles slow network conditions.</p>
+              <a className="text-link" href="#workbench">
+                Inspect the workbench <span aria-hidden="true">↓</span>
+              </a>
             </div>
           </div>
+
+          <figure className="request-panel" aria-label="Example mock API request and response">
+            <div className="panel-heading">
+              <span>REQUEST / RESPONSE</span>
+              <span className="status"><i aria-hidden="true" />200 OK</span>
+            </div>
+            <div className="request-line">
+              <span className="method">GET</span>
+              <code>/api/mock/checkout</code>
+            </div>
+            <div className="code-block">
+              <div><span className="code-key">&quot;status&quot;</span><span>: </span><span className="code-string">&quot;ready&quot;</span>,</div>
+              <div><span className="code-key">&quot;items&quot;</span><span>: </span><span className="code-number">3</span>,</div>
+              <div><span className="code-key">&quot;delay&quot;</span><span>: </span><span className="code-number">420</span></div>
+            </div>
+            <figcaption>
+              <span>application/json</span>
+              <span>420 ms simulated</span>
+            </figcaption>
+          </figure>
         </section>
-      </div>
 
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-        <p>
-          Powered by{' '}
-          <a
-            href="https://supabase.com/"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Supabase
-          </a>{' '}
-          and{' '}
-          <a
-            href="https://nextjs.org/"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Next.js
-          </a>
-        </p>
+        <section className="workbench" id="workbench" aria-labelledby="workbench-title">
+          <div className="section-intro page-grid">
+            <div>
+              <p className="section-index">THE WORKBENCH</p>
+              <h2 id="workbench-title">A predictable API in three moves.</h2>
+            </div>
+            <p>
+              Configure only what the client needs. Mocky handles the route and
+              serves the response from one stable URL.
+            </p>
+          </div>
+
+          <ol className="workflow page-grid">
+            <li>
+              <span className="step-number">01</span>
+              <div>
+                <h3>Name the route</h3>
+                <p>Choose the HTTP method and path your application expects.</p>
+              </div>
+              <code>POST /orders/:id</code>
+            </li>
+            <li>
+              <span className="step-number">02</span>
+              <div>
+                <h3>Shape the response</h3>
+                <p>Set headers, status, JSON body, and an optional network delay.</p>
+              </div>
+              <code>201 · 800 ms</code>
+            </li>
+            <li>
+              <span className="step-number">03</span>
+              <div>
+                <h3>Connect the client</h3>
+                <p>Copy the generated URL and continue building against it.</p>
+              </div>
+              <code>copy endpoint ↗</code>
+            </li>
+          </ol>
+        </section>
+
+        <section className="capabilities page-grid" aria-labelledby="capabilities-title">
+          <div className="capability-heading">
+            <p className="section-index">CAPABILITIES</p>
+            <h2 id="capabilities-title">Small surface. Useful controls.</h2>
+          </div>
+          <dl className="spec-list">
+            {capabilities.map(([term, description]) => (
+              <div key={term}>
+                <dt>{term}</dt>
+                <dd>{description}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <section className="final-cta page-grid" aria-labelledby="cta-title">
+          <div>
+            <p className="section-index">READY WHEN YOU ARE</p>
+            <h2 id="cta-title">Your frontend does not need to wait.</h2>
+          </div>
+          <Link className="button button-inverse button-large" href={workspaceHref}>
+            {workspaceLabel}
+          </Link>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <p className="footer-mark">Mocky / Simple Mocking API</p>
+        <p>Built for frontend, QA, and backend workflows.</p>
+        <p>Next.js · Supabase</p>
       </footer>
     </div>
   );
