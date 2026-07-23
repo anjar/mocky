@@ -1,9 +1,8 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import { getSiteUrl } from "@/utils/site-url";
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+const defaultUrl = getSiteUrl();
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),

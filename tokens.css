@@ -16,6 +16,10 @@
   --color-code: oklch(94% 0.008 250);
   --color-code-muted: oklch(74% 0.016 254);
   --color-success: oklch(76% 0.17 150);
+  --color-danger: oklch(52% 0.2 25);
+  --color-danger-hover: oklch(46% 0.2 25);
+  --color-danger-soft: oklch(95% 0.025 25);
+  --color-danger-ink: oklch(99% 0.004 25);
 
   --font-display: "Space Grotesk", "Geist", ui-sans-serif, sans-serif;
   --font-body: "Geist", ui-sans-serif, sans-serif;
@@ -51,6 +55,8 @@
   --radius-panel: 10px;
   --radius-round: 999px;
   --shadow-panel: 0 1px 2px oklch(24% 0.02 258 / 0.08);
+  --shadow-dialog: 0 24px 80px oklch(8% 0.02 260 / 0.36);
+  --color-overlay: oklch(8% 0.02 260 / 0.68);
   --content-max: 76rem;
   --page-gutter: clamp(1rem, 4vw, 2.5rem);
 }
@@ -73,5 +79,11 @@
   --color-code: oklch(94% 0.008 250);
   --color-code-muted: oklch(72% 0.018 252);
   --color-success: oklch(78% 0.16 150);
+  --color-danger: oklch(72% 0.17 25);
+  --color-danger-hover: oklch(78% 0.15 25);
+  --color-danger-soft: oklch(22% 0.045 25);
+  --color-danger-ink: oklch(14% 0.018 25);
   --shadow-panel: 0 1px 2px oklch(5% 0.01 260 / 0.28);
+  --shadow-dialog: 0 24px 80px oklch(4% 0.015 260 / 0.58);
+  --color-overlay: oklch(4% 0.015 260 / 0.76);
 }

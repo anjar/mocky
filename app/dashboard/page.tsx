@@ -1,6 +1,7 @@
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from "next/headers";
 import DashboardClient from './DashboardClient';
+import { getSiteUrl } from '@/utils/site-url';
 
 export default async function DashboardIndex() {
   const supabase = await createClient(cookies());
@@ -34,6 +35,7 @@ export default async function DashboardIndex() {
     <DashboardClient
       initialProjects={projects || []}
       userEmail={user.email || ''}
+      siteUrl={getSiteUrl()}
     />
   );
 }
